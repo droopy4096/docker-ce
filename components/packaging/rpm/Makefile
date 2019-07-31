@@ -70,6 +70,9 @@ fedora: $(FEDORA_RELEASES) ## build all fedora rpm packages
 centos: $(CENTOS_RELEASES) ## build all centos rpm packages
 
 .PHONY: $(FEDORA_RELEASES) $(CENTOS_RELEASES)
+$(FEDORA_RELEASES): RPM_BUILD_FLAGS+= -D 'distro fedora'
+$(CENTOS_RELEASES): RPM_BUILD_FLAGS+= -D 'distro centos'
+
 $(FEDORA_RELEASES) $(CENTOS_RELEASES): $(SOURCES)
 	@echo "== Building packages for $@ =="
 	$(CHOWN) -R root:root rpmbuild

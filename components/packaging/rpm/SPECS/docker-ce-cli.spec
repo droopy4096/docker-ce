@@ -113,5 +113,14 @@ done
 if ! getent group docker > /dev/null; then
     groupadd --system docker
 fi
+if [ -d /etc/zypp/vars.d ]
+then
+  # we're in SUSE world
+  echo %{distro} > /etc/zypp/vars.d/docker_release
+elif [ -d /etc/yum/vars ]
+  # it's a RedHat family
+  echo %{distro} > /etc/yum/vars/docker_release
+fi
+
 
 %changelog
